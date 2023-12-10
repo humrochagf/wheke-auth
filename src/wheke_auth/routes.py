@@ -7,7 +7,7 @@ from wheke_auth.models import Token, User
 from wheke_auth.security import get_current_active_user
 from wheke_auth.service import AuthService, get_auth_service
 
-router = APIRouter(prefix="/auth")
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/token")
