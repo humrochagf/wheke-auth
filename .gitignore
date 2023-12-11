@@ -11,6 +11,7 @@
 .ruff_cache/
 .venv/
 .vscode
+db/
 dist/
 site/
 venv/
