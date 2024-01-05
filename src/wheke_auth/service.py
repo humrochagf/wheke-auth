@@ -1,9 +1,8 @@
 from datetime import datetime, timedelta, timezone
-from typing import cast
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from wheke import Service, ServiceRegistry
+from wheke import get_service
 
 from wheke_auth.exceptions import AuthException
 from wheke_auth.models import Token, TokenData, User, UserInDB
@@ -15,7 +14,7 @@ ALGORITHM = "HS256"
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-class AuthService(Service):
+class AuthService:
     repository: AuthRepository
 
     def __init__(self, repository: AuthRepository) -> None:
@@ -70,4 +69,4 @@ def auth_service_factory() -> AuthService:
 
 
 def get_auth_service() -> AuthService:
-    return cast(AuthService, ServiceRegistry.get(AuthService))
+    return get_service(AuthService)

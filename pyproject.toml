@@ -29,7 +29,7 @@ dependencies = [
   "passlib[bcrypt]",
   "python-jose[cryptography]",
   "python-multipart",
-  "wheke>=0.0.1a9",
+  "wheke>=0.0.1a10",
 ]
 
 [project.urls]
