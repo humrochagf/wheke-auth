@@ -4,6 +4,7 @@ import typer
 from pydantic import ValidationError
 from rich.console import Console
 from rich.prompt import Prompt
+from wheke import get_container
 
 from wheke_auth.models import User
 from wheke_auth.service import get_auth_service
@@ -13,11 +14,11 @@ console = Console()
 
 
 @cli.command()
-def createuser() -> None:
+def createuser(ctx: typer.Context) -> None:
     """
     Create a User and store it in the service db.
     """
-    auth_service = get_auth_service()
+    auth_service = get_auth_service(get_container(ctx))
 
     full_name = Prompt.ask("Enter the full name for the user")
     username = Prompt.ask("Enter the username for the user")

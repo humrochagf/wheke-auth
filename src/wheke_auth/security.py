@@ -5,14 +5,14 @@ from fastapi.security import OAuth2PasswordBearer
 
 from wheke_auth.exceptions import AuthException
 from wheke_auth.models import User, UserInDB
-from wheke_auth.service import AuthService, get_auth_service
+from wheke_auth.service import AuthServiceInjection
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 
 async def get_current_user(
     token: Annotated[str, Depends(oauth2_scheme)],
-    service: Annotated[AuthService, Depends(get_auth_service)],
+    service: AuthServiceInjection,
 ) -> UserInDB:
     token_data = service.decode_access_token_data(token)
     user = await service.get_user(token_data.username)

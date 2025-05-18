@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from wheke_auth.models import Token, User
 from wheke_auth.security import get_current_active_user
-from wheke_auth.service import AuthService, get_auth_service
+from wheke_auth.service import AuthServiceInjection
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -13,7 +13,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 @router.post("/token")
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    service: Annotated[AuthService, Depends(get_auth_service)],
+    service: AuthServiceInjection,
 ) -> Token:
     user = await service.authenticate_user(form_data.username, form_data.password)
 

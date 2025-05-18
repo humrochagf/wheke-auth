@@ -6,17 +6,18 @@ from fastapi.testclient import TestClient
 from typer import Typer
 
 from tests.example_app import wheke
-from wheke_auth.settings import settings
+from wheke_auth.settings import auth_settings
 
 
 @pytest.fixture
 def client(tmp_path: Path) -> Generator[TestClient, None, None]:
-    previous_db_path = settings.auth_db
-    settings.auth_db = str(tmp_path / "auth.db")
+    previous_db_path = auth_settings.auth_db
+    auth_settings.auth_db = str(tmp_path / "auth.db")
 
-    yield TestClient(wheke.create_app())
+    with TestClient(wheke.create_app()) as app:
+        yield app
 
-    settings.auth_db = previous_db_path
+    auth_settings.auth_db = previous_db_path
 
 
 @pytest.fixture

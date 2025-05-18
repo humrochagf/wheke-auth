@@ -11,12 +11,10 @@ from wheke_auth.models import UserInDB
 
 class AuthRepository:
     @abstractmethod
-    async def get_user(self, username: str) -> UserInDB | None:
-        ...
+    async def get_user(self, username: str) -> UserInDB | None: ...
 
     @abstractmethod
-    async def create_user(self, user: UserInDB) -> None:
-        ...
+    async def create_user(self, user: UserInDB) -> None: ...
 
 
 class TinyAuthRepository(AuthRepository):

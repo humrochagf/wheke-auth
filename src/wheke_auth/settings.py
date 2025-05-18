@@ -2,7 +2,7 @@ from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Settings(BaseSettings):
+class AuthSettings(BaseSettings):
     auth_db: str = "db/auth.json"
     secret_key: SecretStr = SecretStr("change_me")
     access_token_expire_minutes: int = 30
@@ -12,4 +12,4 @@ class Settings(BaseSettings):
     )
 
 
-settings = Settings()
+auth_settings = AuthSettings()
